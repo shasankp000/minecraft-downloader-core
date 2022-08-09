@@ -15,4 +15,5 @@ Some parts of the downloader (like assets.js) have been purposely slowed down to
 
 # Features
 Works on Windows and Linux as well.
+
 Has an inbuilt file checker to check file integrity after download, and redownload corrupted files(automated).
