@@ -11,7 +11,7 @@ Works only for release now.
 The script will log the inputs and then close.
 After that run node app.js and wait for installation to be over.
 
-Some parts of the downloader (like assets.js) have been purposely slowed down to prevent process hanging.
+Some parts of the downloader (like assets.js) have been purposely slowed down to prevent process hanging and that all files are downloaded in the correct order.
 
 # Features
 Works on Windows and Linux as well.
