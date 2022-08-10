@@ -9,7 +9,9 @@ Run node question.js which will ask you to enter the version number(for example 
 Works only for release now.
 
 The script will log the inputs and then close.
-After that run node app.js and wait for installation to be over.
+After that run node app.js to update the configurations.
+
+The other parts of the downloader are in the components folder.
 
 Some parts of the downloader (like assets.js) have been purposely slowed down to prevent process hanging and that all files are downloaded in the correct order.
 
