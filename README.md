@@ -5,7 +5,9 @@ A minecraft downloader written in node.js
 It is an automated downloader for minecraft. Currently only works for vanilla mc and release versions. Snapshots, fabric and forge compatibility will follow soon.
 
 # How to use it?
-First open cmd/terminal in the directory of the files and type npm install, and wait for the process to finish.
+First download the package from the packages section. Open terminal/cmd in the download directory, where the file is present
+
+Type npm install minecraft-downloader-core-1.0.0.tgz, and wait for the process to finish.
 
 Run node question.js which will ask you to enter the version number(for example 1.19) and type, which will be either "release" or "snapshot" (cave sensitive).
 Works only for release now.
@@ -24,4 +26,4 @@ Some parts of the downloader (like assets.js) have been purposely slowed down to
 # Features
 Works on Windows and Linux as well.
 
-Has an inbuilt file checker to check file integrity after download, and redownload corrupted files(automated).
+Has an inbuilt file checker to check file integrity of assets after download.
