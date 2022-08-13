@@ -7,7 +7,7 @@ It is an automated downloader for minecraft. Currently only works for vanilla mc
 # How to use it?
 First download the package from the releases section. Open terminal/cmd in the download directory, where the file is present.
 
-Type npm install minecraft-downloader-core-1.0.0.tgz, and wait for the process to finish.
+Unzip the package and type npm install and wait for the process to finish.
 
 
 Run node question.js which will ask you to enter the version number(for example 1.19) and type, which will be either "release" or "snapshot" (cave sensitive).
