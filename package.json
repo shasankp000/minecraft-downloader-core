@@ -1,0 +1,27 @@
+{
+  "name": "minecraft-downloader-core",
+  "version": "1.0.0",
+  "description": "A minecraft downloader written in node.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shasankp000/minecraft-downloader-core.git"
+  },
+  "keywords": [],
+  "author": "shasankp000",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shasankp000/minecraft-downloader-core/issues"
+  },
+  "homepage": "https://github.com/shasankp000/minecraft-downloader-core#readme",
+  "dependencies": {
+    "node-js": "^1.0.0",
+    "readline-sync": "^1.4.10"
+  },
+  "bundledDependencies": [
+    "readline-sync"
+  ]
+}
