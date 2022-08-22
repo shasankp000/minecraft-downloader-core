@@ -6,18 +6,15 @@ const goBackOneDir = require("./goBOD")
 
 //const sleep = require("./sleep")
 
-const file_downloader = require("./file_dl")
+//const file_downloader = require("./file_dl")
+
+const get = require("./async-file-dl")
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function lib_downloader() {
-    
-    await delay(500)
-
     console.log("Downloading libraries, this is gonna take a while....")
 
-    await delay(3000)
-    
     goBackOneDir()
 
     const versionNumber1 = fs.readFileSync("answer1.txt").toString()
@@ -52,7 +49,7 @@ async function lib_downloader() {
         //process.chdir("libraries")
     }
     else {
-        executeSystemCommand("mkdir libraries", "Creating libraries dir")
+        await executeSystemCommand("mkdir libraries", "Creating libraries dir")
         await delay(1000)
     }
     
@@ -69,7 +66,7 @@ async function lib_downloader() {
 
             process.chdir("libraries")
 
-            await delay(3000)
+            await delay(1000)
 
             let libpathdir = clientJarData.libraries[i].downloads.artifact.path
             let libjarurl = clientJarData.libraries[i].downloads.artifact.url
@@ -82,52 +79,74 @@ async function lib_downloader() {
             console.log(libpathdir)
             console.log(dirpath)
 
-            await delay(3000)
 
             if (process.platform == "win32") {
-                executePowershellCommand(`mkdir -p ${dirpath}`, `powershell.exe`, `Creating path ${dirpath}`)
+                if (fs.existsSync(`${process.cwd()}/${dirpath}`==true)) {
+
+                    console.log(`${dirpath} already exists, accessing...`)
+
+                    process.chdir(dirpath)
+
+                    await get(libjarurl)
+
+                    await delay(2000)
+
+                    process.chdir(`${__dirname}/../.minecraft/`)
+                }
+
+                else{
+
+                    await executePowershellCommand(`mkdir -p ${dirpath}`, `powershell.exe`, `Creating path ${dirpath}`)
+
+                    await delay(3000)
+
+                    process.chdir(dirpath)
+
+                    await get(libjarurl)
+        
+                    await delay(2000)
+        
+                    process.chdir(`${__dirname}/../.minecraft/`)
+                }
+                
             }
             else if (process.platform == "linux") {
-                executeSystemCommand(`mkdir -p ${dirpath}`, `Creating path ${dirpath}`)
+
+                if (fs.existsSync(`${process.cwd()}/${dirpath}`==true)) {
+
+                    console.log(`${dirpath} already exists, accessing...`)
+
+                    process.chdir(dirpath)
+
+                    await get(libjarurl)
+
+                    await delay(2000)
+
+                    process.chdir(`${__dirname}/../.minecraft/`)
+                }
+
+                else{
+
+                    await executeSystemCommand(`mkdir -p ${dirpath}`, `Creating path ${dirpath}`)
+                    
+                    await delay(1000)
+
+                    process.chdir(dirpath)
+        
+                    await get(libjarurl)
+        
+                    await delay(2000)
+        
+                    process.chdir(`${__dirname}/../.minecraft/`)
+                }
+                
             }
-            
-
-
-            await delay(7000)
-
-            process.chdir(dirpath)
-
-            await delay(2000)
-
-            file_downloader(libjarurl)
-
-            await delay(10000)
-
-            process.chdir(`${__dirname}/../.minecraft/`)
-
             
         }
     }
     
-
-    //console.log("Download started.")
-
-
-    // check line 108 in 1.18.2.json. 
-    // get dirname from path and execute system command to create that path.
-    // then navigate to path and download jar.
-
-
 }
 
 
 
 lib_downloader()
-
-//lib_downloader()
-
-/*
-if (process.platform == "win32") {
-    executePowershellCommand(`mkdir -p com/mojang/logging/1.0.0`, `powershell.exe`, `Creating path com/mojang/logging/1.0.0`)
-}
-*/

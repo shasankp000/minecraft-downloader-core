@@ -4,7 +4,7 @@
   "description": "A minecraft downloader written in node.js",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,14 @@
   },
   "homepage": "https://github.com/shasankp000/minecraft-downloader-core#readme",
   "dependencies": {
+    "fast-xml-parser": "^4.0.9",
+    "node-fetch": "^2.6.7",
     "node-js": "^1.0.0",
     "readline-sync": "^1.4.10"
   },
-  "bundledDependencies": [
-    "readline-sync"
+  "bundleDependencies": [
+    "readline-sync",
+    "node-fetch",
+    "fast-xml-parser"
   ]
 }

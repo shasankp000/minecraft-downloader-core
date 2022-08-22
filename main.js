@@ -10,6 +10,7 @@ const executeSystemCommand = require("./components/execute_sys_cmd")
 const release_version_json_Downloader = require("./components/release")
 const snapshot_version_json_Downloader = require("./components/snap")
 
+const get = require("./components/async-file-dl")
 
 
 
@@ -17,6 +18,8 @@ const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 async function mc_dl_core() {
     
+
+
         try {
 
             console.log("Minecraft-download-core v1.0.0")
@@ -52,36 +55,26 @@ async function mc_dl_core() {
             await delay(2000)
             // get version_manifest.json
 
-            https.get("https://launchermeta.mojang.com/mc/game/version_manifest.json", (res) => {
-                const fname = Path.basename("https://launchermeta.mojang.com/mc/game/version_manifest.json")
-                const writeStream = fs.createWriteStream(fname)
-    
-                res.pipe(writeStream)
-    
-                writeStream.on("finish", () => {
-                    writeStream.close()
-                    console.log("Downloaded" + " " + `${fname}`)
-                })
-    
-            })
-
+            await get("https://launchermeta.mojang.com/mc/game/version_manifest.json")
             
-            await delay(5000)
+            await delay(1000)
 
             // download all jsons of all versions.
 
             console.log("Updating release jsons....")
-            release_version_json_Downloader()
+            await release_version_json_Downloader()
 
-            await delay(5000)
+            await delay(2000)
             
             console.log("Updating snapshot jsons...")
 
-            snapshot_version_json_Downloader()
+            await snapshot_version_json_Downloader()
 
-            await delay(10000)
 
             console.log("Version info updated.")
+
+
+
         }
 
         catch (err) {

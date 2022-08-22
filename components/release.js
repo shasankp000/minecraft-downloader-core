@@ -1,9 +1,7 @@
 const fs = require("fs") // for reading and writing files, downloading stuff.
-const https = require("https") // for downloading stuff
-const Path = require("path") // I will use this to determine filename from url.
+const get = require("./async-file-dl")
 
-
-function release_version_json_Downloader() {
+async function release_version_json_Downloader() {
 
         
 
@@ -17,22 +15,7 @@ function release_version_json_Downloader() {
         if (i<data.versions.length) {
             if (data.versions[i].type == "release") {
                 let version_json_url = data.versions[i].url
-
-                let filename = Path.basename(version_json_url)
-
-                https.get(version_json_url, (res) => {
-                    const puth = filename;
-                    const writeStream1 = fs.createWriteStream(puth);
-                    
-                    res.pipe(writeStream1);
-                    writeStream1.on("finish", () => {
-                    writeStream1.close();
-                    console.log("Download Completed!");
-
-                    })
-                
-                })
-
+                await get(version_json_url)
         }
         
         }

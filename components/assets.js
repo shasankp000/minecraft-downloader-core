@@ -52,11 +52,7 @@ async function assets_downloader() {
     
         let assetIndexurl = clientJarData.assetIndex.url
     
-        await delay(2000)
-    
-        file_downloader(assetIndexurl)
-    
-        await delay(5000)
+        await get(assetIndexurl)
     
         let assetObjectIndex = fs.readFileSync(`${versionNumber2.slice(0,4)}.json`)
     
@@ -74,7 +70,7 @@ async function assets_downloader() {
         }
         
     
-        await delay(2000)
+        await delay(1000)
 
         executeSystemCommand("mkdir objects", "creating objects dir..")
 
@@ -89,7 +85,7 @@ async function assets_downloader() {
         //console.log(values)
 
 
-        await delay(2000)
+        await delay(1000)
 
         console.log("Checking files...")
 
@@ -118,7 +114,7 @@ async function assets_downloader() {
                 }
                 else if (fs.existsSync(`${__dirname}/../.minecraft/assets/objects/${eachValue.hash.slice(0,2)}`)==false){
 
-                    executeSystemCommand(`mkdir ${eachValue.hash.slice(0,2)}`, `creating directory ${eachValue.hash.slice(0,2)}..`)
+                    await executeSystemCommand(`mkdir ${eachValue.hash.slice(0,2)}`, `creating directory ${eachValue.hash.slice(0,2)}..`)
 
                     await delay(1000)
 
