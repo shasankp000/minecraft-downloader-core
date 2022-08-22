@@ -4,8 +4,8 @@ const {pipeline} = require('stream/promises');
 const get = require("./async-file-dl")
 const goBackOneDir = require("./goBOD");
 const executeSystemCommand = require("./execute_sys_cmd");
-const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser")
-const Path = require("path")
+const { XMLParser} = require("fast-xml-parser")
+const delFile = require("./delete")
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -30,7 +30,20 @@ const getFabricInstallers = async(url) => pipeline(
 
 async function fabric_dl() {
     
+
+    if (fs.existsSync(`${__dirname}/../fabric_jsons/`)==true) {
+        console.log("fabric_jsons dir already exists, ignoring...")
+    }
+    else {
+        await executeSystemCommand("mkdir fabric_jsons", "Creating fabric_jsons dir")
+    }
+
+    await delay(1000)
+
+    process.chdir("fabric_jsons")
+
     console.log("Updating configurations....")
+
 
     await delay(500)
 
@@ -44,10 +57,15 @@ async function fabric_dl() {
 
     await delay(500)
     
-    const versionNumber3 = fs.readFileSync("answer1.txt")
+    
     const xmldata = fs.readFileSync("./fabric_installers.xml")
     const loader_json = fs.readFileSync("./fabric_loaders.json")
 
+    await delay(1000)
+
+    process.chdir("../")
+
+    const versionNumber3 = fs.readFileSync("answer1.txt")
     const type = fs.readFileSync("answer2.txt")
 
 
@@ -78,9 +96,13 @@ async function fabric_dl() {
 
         await delay(1000)
 
-        executeSystemCommand(`java -jar fabric-installer-${latest_installer_version}.jar client -dir "${process.cwd()}/.minecraft" -mcversion ${versionNumber3} -loader ${latest_loader_vesion} -noprofile`, `Installing fabric ${versionNumber3}`)
-        
+        await executeSystemCommand(`java -jar fabric-installer-${latest_installer_version}.jar client -dir "${process.cwd()}/.minecraft" -mcversion ${versionNumber3} -loader ${latest_loader_vesion} -noprofile`, `Installing fabric ${versionNumber3}`)
+
+        await delay(4000)
+
         console.log("Done")
+
+        await delFile(`fabric-installer-${latest_installer_version}.jar`, `${process.cwd()}`)
 
     }
 
