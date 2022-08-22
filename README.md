@@ -30,3 +30,9 @@ Some parts of the downloader (like assets.js) have been purposely slowed down to
 Works on Windows and Linux as well.
 
 Has an inbuilt file checker to check file integrity of assets after download.
+
+
+# Changelog
+After much help and many suggestions, the download algorithms were rewritten to make them more faster and less resource intensive.
+
+Fabric download module has been added.
