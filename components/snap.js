@@ -1,7 +1,5 @@
 const fs = require("fs")
-const https = require("https")
-const Path = require("path")
-
+const cliProgress = require('cli-progress');
 const get = require("./async-file-dl")
 
 const goBackOneDir = require("./goBOD")
@@ -18,16 +16,48 @@ async function snapshot_version_json_Downloader() {
     const reader = fs.readFileSync("version_manifest.json") // reading the json file.
     const data = JSON.parse(reader) // parsing the file handle
 
-    process.chdir("snapshot")
+    const snap_array = []
+    const name_array = []
 
+    for (i in data.versions) {
+        if(data.versions[i].type == "snapshot") {
+  
+            snap_array.push(data.versions[i].url)
+            name_array.push(data.versions[i].id)
 
-    for(let i=0; i<data.versions.length; i++) {
-        if (data.versions[i].type == "snapshot") {
-            let version_json_url = data.versions[i].url
-            await get(version_json_url)
         }
     }
-    return true
+
+    //console.log(release_array)
+
+    
+    process.chdir("snapshot")
+
+    const bar1 = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
+
+    console.log(`Downloading ${snap_array.length} files....`)
+
+    bar1.start(snap_array.length,0)
+
+
+    for(let i=0; i<snap_array.length; i++) {
+
+        if (i<snap_array.length) {
+            let version_json_url = snap_array[i]
+            await get(version_json_url)
+            bar1.update(i, {filename: `${data.versions[i].id}`})         
+        }
+
+        if(i==(snap_array.length-1)) {
+            bar1.stop()
+            console.log("Download complete.")
+        }
+
+    }
+
+
 }
 
+
 module.exports = snapshot_version_json_Downloader
+//snapshot_version_json_Downloader()
