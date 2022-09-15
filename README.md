@@ -18,11 +18,11 @@ After that run node main.js to update the configurations.
 
 The other parts of the downloader are in the components folder.
 
-The general order would be to run app.js>mc_downloader.js>libraries.js>assets.js
+The general order would be to run main.js>mc_downloader.js>libraries.js>assets.js
 
 Following this order will generate a .minecraft folder containing all required files
 
-Some parts of the downloader (like assets.js) have been purposely slowed down to prevent process hanging and that all files are downloaded in the correct order.
+
 
 
 
