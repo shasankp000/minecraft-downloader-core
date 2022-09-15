@@ -1,10 +1,6 @@
 // Imports
 
 const fs = require("fs") // for reading and writing files, downloading stuff.
-const https = require("https") // for downloading stuff
-const Path = require("path") // I will use this to determine filename from url.
-
-
 
 const executeSystemCommand = require("./components/execute_sys_cmd")
 const release_version_json_Downloader = require("./components/release")
@@ -29,7 +25,15 @@ async function mc_dl_core() {
                 console.log("version_jsons dir already exists, ignoring...")
             }
             else {
-                executeSystemCommand("mkdir version_jsons", "Creating version_jsons dir")
+                fs.mkdir(`version_jsons`, {recursive:false}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        console.log("Creating version_jsons dir")
+                    }
+                })
+                //await executeSystemCommand("mkdir version_jsons", "Creating version_jsons dir")
             }
 
             //executeSystemCommand("cp ./answer1.txt ./version_jsons")
@@ -42,14 +46,30 @@ async function mc_dl_core() {
                 console.log("release dir already exists, ignoring...")
             }
             else {
-                executeSystemCommand("mkdir release", "Creating release dir")
+                fs.mkdir(`release`, {recursive:false}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        console.log("Creating release dir")
+                    }
+                })
+                //await executeSystemCommand("mkdir release", "Creating release dir")
             }
 
             if (fs.existsSync(`${__dirname}/version_jsons/snapshot`)==true) {
                 console.log("snapshot dir already exists, ignoring...")
             }
             else {
-                executeSystemCommand("mkdir snapshot", "Creating snapshot dir")
+                fs.mkdir(`snapshot`, {recursive:false}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                    else {
+                        console.log("Creating snapshot dir")
+                    }
+                })
+                //await executeSystemCommand("mkdir snapshot", "Creating snapshot dir")
             }
 
             await delay(2000)
