@@ -35,4 +35,8 @@ Has an inbuilt file checker to check file integrity of assets after download.
 # Changelog
 After much help and many suggestions, the download algorithms were rewritten to make them more faster and less resource intensive.
 
+A progress bar has been added to help users keep track of the download. The download algorithm has been rewritten completely from scratch to improve download speed.
+
+Effects were shown in all parts of the downloaded , even the assets downloader, although download of assets for the first time of a specific version takes about 1 hour 30 mins due to incredibly large number of files.
+
 Fabric download module has been added.
