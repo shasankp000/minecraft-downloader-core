@@ -12,4 +12,16 @@ async function deleteFile(filename, path) {
     });
 }
 
+async function deleteFile(absolutePath) {
+    fs.unlink(`${absolutePath}`, (err) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            console.log(`Deleted ${absolutePath}`);
+        }
+
+    });
+}
+
 module.exports = deleteFile
